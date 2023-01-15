@@ -10,31 +10,40 @@
  * Check servie worker.
  */
 if (navigator.serviceWorker) {
-  navigator.serviceWorker.register("/ICS2O-PWA-Test/sw.js", {
-    scope: "/ICS2O-PWA-Test/",
+  navigator.serviceWorker.register("/ICS2OR-Assignment-6/sw.js", {
+    scope: "/ICS2OR-Assignment-6/",
   })
 }
 
 /**
- * This function displays an alert.
- * Math
- */
-function calculate() {
-  // input
-  const a = parseInt(document.getElementById("textbox-a").value)
-  const b = parseInt(document.getElementById("textbox-b").value)
-  const c = parseInt(document.getElementById("textbox-c").value)
+ * Get API info.
+*/
+// code from: https://www.youtube.com/watch?v=670f71LTWpM
 
-  // process
-  const math = a + b + c
-  // output
-  document.getElementById("math").innerHTML = "Numbers: " + math + " units"
+const getImage = async (URLAddress) => {
+  try {
+    const result = await fetch(URLAddress)
+    const jsonData = await result.json()
+    console.log(jsonData)
+    document.getElementById("api-image").innerHTML =
+    '<img src="' + 
+      jsonData.url + 
+      '" alt="API image" class="center" ' +
+      '>'
+    if (jsonData.artist_url != "none") {
+      document.getElementById("image-artist").innerHTML =
+      "<p>Artist: " +
+      '<a href="' +
+      jsonData.artist_url +
+      '">' +
+      jsonData.artist +
+      "</a>"
+  } else {
+    document.getElementById("image-artist").innerHTML = "<p>Artist: unknown</p>"
+  }
+  } catch (err) {
+    console.log(err)
+  }
 }
 
-/**
- * This function displays an alert.
- * Words
- */
-function button() {
-  document.getElementById("words").innerHTML = "<p>Hello, World!</p>"
-}
+getImage("https://api.catboys.com/img")
