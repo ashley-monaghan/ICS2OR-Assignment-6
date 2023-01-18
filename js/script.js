@@ -20,30 +20,16 @@ if (navigator.serviceWorker) {
 */
 // code from: https://www.youtube.com/watch?v=670f71LTWpM
 
-const getImage = async (URLAddress) => {
-  try {
-    const result = await fetch(URLAddress)
-    const jsonData = await result.json()
-    console.log(jsonData)
-    document.getElementById("api-image").innerHTML =
-    '<img src="' + 
-      jsonData.url + 
-      '" alt="API image" class="center" ' +
-      '>'
-    if (jsonData.artist_url != "none") {
-      document.getElementById("image-artist").innerHTML =
-      "<p>Artist: " +
-      '<a href="' +
-      jsonData.artist_url +
-      '">' +
-      jsonData.artist +
-      "</a>"
-  } else {
-    document.getElementById("image-artist").innerHTML = "<p>Artist: unknown</p>"
-  }
-  } catch (err) {
-    console.log(err)
-  }
-}
+var request = new XMLHttpRequest();
 
-getImage("https://api.catboys.com/img")
+request.open('GET', 'http://cakes.ckl.io/cakes/');
+
+request.onreadystatechange = function () {
+  if (this.readyState === 4) {
+    console.log('Status:', this.status);
+    console.log('Headers:', this.getAllResponseHeaders());
+    console.log('Body:', this.responseText);
+  }
+};
+
+request.send();
