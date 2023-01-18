@@ -17,7 +17,19 @@ if (navigator.serviceWorker) {
 
 /**
  * Get API info.
-*/
+ */
 // code from: https://www.youtube.com/watch?v=670f71LTWpM
 
-$(".mobile-menu").click(function(){$(".vertical-nav").toggleClass("active")}),$(".vertical-nav ul a").click(function(){$(".vertical-nav").removeClass("active")});
+const getImage = async (URLAddress) => {
+  try {
+    const result = await fetch(URLAddress)
+    const jsonData = await result.json()
+    console.log(jsonData)
+    document.getElementById("api-image").innerHTML =
+      '<img src="' + jsonData.url + '" alt="API image" class="center">'
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+getImage("https://dog.ceo/api/breeds/image/random")
