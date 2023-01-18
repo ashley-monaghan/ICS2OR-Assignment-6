@@ -46,4 +46,4 @@ const getImage = async (URLAddress) => {
   }
 }
 
-getImage("https://pokeapi.co/api/v2/")
+getImage("https://dog.ceo/api/breeds/image/random")
